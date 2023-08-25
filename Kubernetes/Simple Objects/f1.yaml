@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"version":"v1","zone":"prod"},"name":"nginx","namespace":"default"},"spec":{"containers":[{"image":"apasoft/nginx:v1","name":"nginx"}]}}
+  creationTimestamp: "2023-08-02T20:04:30Z"
+  labels:
+    version: v1
+    zone: prod
+  name: nginx
+  namespace: default
+  resourceVersion: "4698"
+  uid: d09596b2-8a89-4b96-b97d-6a58d40566a6
+spec:
+  containers:
+  - image: apasoft/nginx:v1
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-cpqtg
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-cpqtg
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-08-02T20:04:30Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-08-02T20:06:28Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-08-02T20:06:28Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-08-02T20:04:30Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://8c19a640b65edc45385bda41b743bab12805e1492dd5a6b826fd0852689ab46d
+    image: apasoft/nginx:v1
+    imageID: docker-pullable://apasoft/nginx@sha256:45b3154692ef8073f8b22dd70012fedf6e25c9a1dda7aa83b27ac28332a15e64
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-08-02T20:06:28Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 10.244.0.21
+  podIPs:
+  - ip: 10.244.0.21
+  qosClass: BestEffort
+  startTime: "2023-08-02T20:04:30Z"
